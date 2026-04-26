@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --paper: #f7f4ea;
+    --deep: #0b132b;
+    --pulse: #f46036;
+    --accent: #2e5eaa;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--deep);
+    background:
+        radial-gradient(circle at 90% 10%, rgba(244, 96, 54, 0.18), transparent 40%),
+        radial-gradient(circle at 10% 80%, rgba(46, 94, 170, 0.18), transparent 42%),
+        var(--paper);
+}

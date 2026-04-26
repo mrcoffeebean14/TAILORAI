@@ -1,0 +1,5 @@
+# Change this file to switch LLM company/provider/model without code changes.
+provider: groq
+company: Groq
+model: qwen/qwen3-32b
+temperature: 0.2
