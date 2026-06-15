@@ -21,16 +21,36 @@ async function copyToClipboard(content: string) {
   await navigator.clipboard.writeText(content);
 }
 
+function CopyButton({ onClick, label }: { onClick: () => void; label: string }) {
+  const [copied, setCopied] = useState(false);
+
+  function handleClick() {
+    onClick();
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={handleClick}
+      className="rounded-lg border border-ink/10 bg-white/60 px-3 py-2 text-xs font-semibold text-ink backdrop-blur-sm transition hover:bg-white hover:shadow-sm"
+    >
+      {copied ? "✓ Copied" : label}
+    </button>
+  );
+}
+
 function ThoughtsAccordion({ thoughts }: { thoughts: string[] }) {
   const [isOpen, setIsOpen] = useState(false);
 
   if (!thoughts || thoughts.length === 0) return null;
 
   return (
-    <div className="mb-4 rounded-xl border border-tide/20 bg-cloud/50 overflow-hidden transition-all duration-300">
+    <div className="mb-4 rounded-xl border border-tide/20 bg-tide/5 overflow-hidden transition-all duration-300">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between px-4 py-3 text-sm font-semibold text-tide transition-colors hover:bg-tide/5"
+        className="flex w-full items-center justify-between px-4 py-3 text-sm font-semibold text-tide transition-colors hover:bg-tide/10"
       >
         <span className="flex items-center gap-2">
           <span>✨</span> View AI Reasoning
@@ -69,7 +89,7 @@ export function OutputViewer() {
 
   if (!response) {
     return (
-      <div className="animate-rise rounded-2xl border border-ink/20 bg-white/80 p-6 text-sm text-ink/80 shadow-card backdrop-blur-md">
+      <div className="animate-rise glass rounded-2xl p-6 text-sm text-ink/80 shadow-card">
         No generated output yet.
       </div>
     );
@@ -78,23 +98,24 @@ export function OutputViewer() {
   return (
     <div className="grid gap-6 animate-rise">
       {parsedResume && (
-        <section className="min-w-0 rounded-2xl border border-ink/20 bg-white/70 p-6 shadow-card backdrop-blur-md transition-all hover:bg-white/80 hover:shadow-lg">
+        <section className="min-w-0 glass rounded-2xl p-6 shadow-card transition-all hover:shadow-lg">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-            <h2 className="font-serif text-2xl font-semibold text-ink">Customized Resume LaTeX</h2>
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-tide/10 text-xl">📄</span>
+              <h2 className="font-serif text-2xl font-semibold text-ink">Customized Resume</h2>
+            </div>
             <div className="flex gap-2">
-              <button
-                type="button"
+              <CopyButton
                 onClick={() => copyToClipboard(parsedResume.cleanedText)}
-                className="rounded-lg border border-ink/20 px-3 py-2 text-xs font-semibold text-ink transition hover:bg-cloud hover:shadow-sm"
-              >
-                Copy
-              </button>
+                label="Copy"
+              />
               <button
                 type="button"
                 onClick={() => downloadTextFile("resume-customized.tex", parsedResume.cleanedText)}
-                className="rounded-lg bg-ink px-3 py-2 text-xs font-semibold text-white transition hover:bg-tide hover:shadow-md"
+                className="group relative overflow-hidden rounded-lg bg-ink px-3 py-2 text-xs font-semibold text-white transition hover:shadow-md"
               >
-                Download .tex
+                <span className="relative z-10">Download .tex</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-tide to-ember opacity-0 transition-opacity group-hover:opacity-100" />
               </button>
             </div>
           </div>
@@ -108,30 +129,31 @@ export function OutputViewer() {
       )}
 
       {hasCoverLetter && parsedCoverLetter && (
-        <section className="rounded-2xl border border-ink/20 bg-white/70 p-6 shadow-card backdrop-blur-md transition-all hover:bg-white/80 hover:shadow-lg">
+        <section className="glass rounded-2xl p-6 shadow-card transition-all hover:shadow-lg">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-            <h2 className="font-serif text-2xl font-semibold text-ink">Generated Cover Letter</h2>
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-ember/10 text-xl">✉️</span>
+              <h2 className="font-serif text-2xl font-semibold text-ink">Cover Letter</h2>
+            </div>
             <div className="flex gap-2">
-              <button
-                type="button"
+              <CopyButton
                 onClick={() => copyToClipboard(parsedCoverLetter.cleanedText)}
-                className="rounded-lg border border-ink/20 px-3 py-2 text-xs font-semibold text-ink transition hover:bg-cloud hover:shadow-sm"
-              >
-                Copy
-              </button>
+                label="Copy"
+              />
               <button
                 type="button"
                 onClick={() => downloadTextFile("cover-letter.txt", parsedCoverLetter.cleanedText)}
-                className="rounded-lg bg-ink px-3 py-2 text-xs font-semibold text-white transition hover:bg-tide hover:shadow-md"
+                className="group relative overflow-hidden rounded-lg bg-ink px-3 py-2 text-xs font-semibold text-white transition hover:shadow-md"
               >
-                Download .txt
+                <span className="relative z-10">Download .txt</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-tide to-ember opacity-0 transition-opacity group-hover:opacity-100" />
               </button>
             </div>
           </div>
 
           <ThoughtsAccordion thoughts={parsedCoverLetter.thoughts} />
 
-          <pre className="whitespace-pre-wrap rounded-xl bg-cloud p-4 text-sm text-ink shadow-inner border border-ink/5">
+          <pre className="whitespace-pre-wrap rounded-xl bg-cloud/80 p-4 text-sm leading-relaxed text-ink shadow-inner border border-ink/5">
             {parsedCoverLetter.cleanedText}
           </pre>
         </section>

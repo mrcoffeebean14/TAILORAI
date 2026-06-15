@@ -14,8 +14,9 @@ const bitter = Bitter({
 });
 
 export const metadata: Metadata = {
-  title: "ResumeForge",
-  description: "Agentic AI Resume Customization System",
+  title: "TailorAI — AI Resume Tailoring",
+  description:
+    "Paste your LaTeX resume and a job description. TailorAI's multi-agent pipeline customizes every section while preserving factual integrity.",
 };
 
 export default function RootLayout({
