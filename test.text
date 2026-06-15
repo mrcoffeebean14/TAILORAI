@@ -1,0 +1,165 @@
+Prompt Intern
+About the job
+Job Description: Prompt Engineer Intern
+
+Opening : 02
+
+Company: Timble AI
+
+Location: Delhi (On-site)
+
+Duration: 4 - 6 Months (With PPO potential based on performance)
+
+Department: AI & Product Development
+
+About Timble AI
+
+Timble AI is a fast-growing technology organization pioneering AI-driven financial intelligence, identity verification, and Voice AI solutions. Built on our core philosophy of "Efficiency by Design," we develop enterprise-grade APIs that automate complex business processes. We thrive on a high-energy culture where innovation meets execution.
+
+Role Objective
+
+We are seeking a tech-savvy Prompt Engineer Intern to collaborate with our engineering team. You will be responsible for designing, refining, and optimizing prompts for Large Language Models (LLMs) to improve the accuracy, speed, and reliability of our AI products.
+
+Key Responsibilities
+
+Prompt Design & Optimization: Craft, test, and fine-tune complex prompts to ensure our AI models deliver precise, context-aware responses.
+UI Integration: Work closely with front-end components using HTML to ensure the AI's output renders beautifully and functions correctly within our user interfaces.
+Model Evaluation: Conduct iterative testing to identify edge cases, reduce AI hallucination, and maintain output consistency.
+Cross-Functional Collaboration: Partner with the data science and core engineering teams to align prompt behavior with backend technical capabilities.
+
+Requirements & Technical Skills
+
+Education: B.Tech in Computer Science (CS) or a related technical field.
+Web Basics: Strong fundamental knowledge of HTML (and basic CSS/JavaScript) to structure and present data seamlessly.
+AI Familiarity: A solid understanding of how LLMs (like GPT, Claude, or open-source models) interpret natural language instructions.
+Analytical Mindset: Excellent problem-solving skills to debug why a model failed a specific query and find a logical fix.
+Work Ethic: A strong "hustle" mindset, ready to adapt to a fast-paced environment and maintain high professional standards.
+
+What’s in it for you?
+
+Direct mentorship from core AI/ML engineers.
+Hands-on experience working on live production models used by enterprise clients.
+A vibrant office environment where creative ideas are put into production quickly.
+Certificate of Internship and a strong consideration for a Full-Time Offer (PPO).
+
+Skills:- HTML/CSS, Model-based testing, gpt, Anthropic Claude, Javascript, Open-source LLMs and User Interface (UI) Design
+
+
+latex code
+\documentclass[10pt,letterpaper]{article}
+
+% -------------------- PACKAGES --------------------
+\usepackage[top=0.45cm,bottom=0.5cm,left=1cm,right=1cm]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{charter}
+\usepackage{xcolor}
+
+% -------------------- GLOBAL SETTINGS --------------------
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+\hypersetup{
+    colorlinks=true,
+    urlcolor=black
+}
+
+\titleformat{\section}{\bfseries\large}{}{0pt}{}[\titlerule]
+\titlespacing{\section}{0pt}{4pt}{3pt}
+
+\setlist[itemize]{topsep=1pt,itemsep=1pt,parsep=0pt,leftmargin=14pt}
+\setlist[enumerate]{topsep=1pt,itemsep=1pt,parsep=0pt,leftmargin=18pt}
+
+% -------------------- DOCUMENT --------------------
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    {\Huge \scshape Mandeep Singh} \\ \vspace{2pt}
+    \small
+    \underline{9569121503} \hspace{4pt}
+    \href{mailto:singhmps14@gmail.com}{\underline{singhmps14@gmail.com}} \hspace{4pt}
+    \href{https://www.linkedin.com/in/mrcoffeebean14/}{\underline{linkedin.com/in/mrcoffeebean14}} \hspace{4pt}
+    \href{https://github.com/mrcoffeebean14}{\underline{github.com/mrcoffeebean14}} \hspace{4pt}
+    \href{https://leetcode.com/u/Mrcoffeebean14/}{\underline{leetcode.com/u/Mrcoffeebean14}}
+\end{center}
+
+% ---------- SUMMARY ----------
+\section{Summary}
+Final-year CSE student (CGPA: 8.9) with hands-on experience \textbf{designing, deploying, and maintaining production-grade distributed systems and AI-integrated applications}. Strong computer science fundamentals -- data structures, algorithms, software design, and systems thinking -- applied to real-world engineering challenges at scale.
+\normalsize
+
+% -------------------- EDUCATION --------------------
+\section{Education}
+
+\textbf{Bennett University -- B.Tech in Computer Science \& Engineering}
+\hfill
+\textbf{August 2023 -- Present} \\
+CGPA: \textbf{8.9/10.0}
+
+% -------------------- SKILLS --------------------
+\section{Skills}
+\textbf{Languages:} Python, C++, JavaScript, SQL \\
+\textbf{CS Fundamentals:} Data Structures \& Algorithms, OOPs, DBMS, Computer Networks, Concurrency \\
+\textbf{Systems \& Architecture:} Distributed systems design, async/concurrent pipelines, modular service architecture, REST APIs \\
+\textbf{AI \& ML Systems:} LangChain, LangGraph, RAG, OpenAI API, Anthropic (Claude) API, Gemini API, Groq, Hugging Face \\
+\textbf{Backend \& Infrastructure:} FastAPI, Flask, Express.js, Node.js, Docker, Linux, Git, AWS (S3, Polly) \\
+\textbf{Data \& Storage:} MongoDB, MySQL, Redis, vector databases \\
+\textbf{Debugging \& Observability:} Structured logging, output validation, systematic test suites, pre-production bug detection
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+\textbf{Software Engineer Intern -- Corporate Cruise (Startup)}
+\hfill
+\textit{May 2025 -- Jul 2025}
+
+\begin{itemize}
+\item \textbf{Designed and shipped AI-integrated backend features} using OpenAI API and LangChain -- prototyped, debugged, and deployed to production within 3 weeks, demonstrating end-to-end ownership of a complex system
+\item Built \textbf{6+ production REST APIs} for authentication and session management in Node.js -- all shipped within the first month and actively serving live traffic; applied rigorous software design and testing practices throughout
+\item Integrated third-party payment and email APIs end-to-end with \textbf{retry logic, error classification, and graceful failure handling} -- automated a manual process and reduced transaction handling time by \textbf{\textasciitilde60\%}
+\item Reviewed \textbf{10+ pull requests} across React and Node.js codebases; caught and resolved a critical pre-production bug that would have broken the live payment flow -- demonstrating strong \textbf{debugging and code analysis} instincts
+\end{itemize}
+
+% -------------------- PROJECTS --------------------
+\section{Projects}
+
+\textbf{TAILORAI -- Distributed Multi-Agent AI System}
+\hfill
+\texttt{\href{https://github.com/mrcoffeebean14/TAILORAI}{github.com/mrcoffeebean14/TAILORAI}}
+
+\begin{itemize}
+\item \textbf{Designed and implemented a distributed multi-agent pipeline} using LangGraph -- parallel async agents execute concurrently across independent subsystems (experience, projects, skills), reducing manual effort by \textbf{70--80\%}
+\item Architected a \textbf{provider-agnostic LLM abstraction layer} across OpenAI, Anthropic, Gemini, and Groq -- a software design pattern that decouples business logic from external provider dependencies entirely
+\item Built a \textbf{structured evaluation framework} with immutability controls and output validation -- blocked \textbf{15+ incorrect AI modifications} across test runs; demonstrates rigorous thinking around reliability and correctness
+\item Exposed as a \textbf{scalable FastAPI service}, Dockerized for reproducible deployment, with full API documentation and a version-controlled release (v1.0.0) -- production-grade engineering end to end
+\end{itemize}
+
+\textbf{AI-Driven News Summarizer -- Large-Scale Async Pipeline}
+\hfill
+\texttt{\href{https://github.com/mrcoffeebean14/News_Summarizer_Agent}{github.com/mrcoffeebean14/News\_Summarizer\_Agent}}
+
+\begin{itemize}
+\item \textbf{Designed and deployed a large-scale async data pipeline} -- ingestion, semantic retrieval, LLM summarization, voice synthesis (AWS Polly), and delivery -- all orchestrated end-to-end with no manual intervention
+\item Applied \textbf{distributed systems design principles}: modular service boundaries, clean interfaces between stages, and independent extensibility -- new sources or output channels integrate without modifying core logic
+\item Validated \textbf{reliability and performance} across \textbf{500+ articles} with consistent \textbf{60--70\% compression accuracy}; exposed as a FastAPI service, Dockerized for scalable deployment
+\end{itemize}
+
+% -------------------- ACHIEVEMENTS --------------------
+\section{Achievements}
+\begin{itemize}
+    \item Ranked \textbf{Top 10} at \textbf{Smart India Hackathon (SIH)} -- national-level hackathon by the Government of India with 1M+ participants across 10,000+ teams.
+    \item Solved \textbf{500+} algorithmic problems across LeetCode, Codeforces, and CodeChef -- strong DSA fundamentals in Python and C++.
+    \item \textbf{LeetCode Rating: 1700+}. \textbf{CodeChef Rating: 1700+} with consistent contest participation across data structures, graphs, and dynamic programming.
+\end{itemize}
+
+% -------------------- POSITIONS --------------------
+\section{Positions of Responsibility}
+
+\textbf{Social-Media Head, DevOps BU Club, Bennett University (2024--2025)} \\
+Owned event promotion and cross-team content outreach. \\
+\textbf{Joint-Secretary, BU-Gamers Club, Bennett University (2025--2026)} \\
+Coordinated club operations and event logistics.
+
+\end{document}
