@@ -1,0 +1,25 @@
+# TailorAI Production Caddyfile Template
+# This file configures Caddy to automatically manage SSL certificates and route traffic to the frontend and backend.
+
+# Base options
+{
+    email {$ACME_EMAIL:singhmps14@gmail.com}
+}
+
+# Frontend domain routing
+{$DOMAIN_NAME:localhost} {
+    # Reverse proxy for Next.js frontend container
+    reverse_proxy frontend:3000
+    
+    # Compress responses for better loading performance
+    encode gzip zstd
+}
+
+# Backend api domain routing
+{$API_DOMAIN_NAME:api.localhost} {
+    # Reverse proxy for FastAPI backend container
+    reverse_proxy backend:8000
+    
+    # Compress responses for better loading performance
+    encode gzip zstd
+}

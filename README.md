@@ -89,6 +89,63 @@ Frontend will run at `http://localhost:3000` and the Backend will serve API traf
 
 ---
 
+## Production Deployment
+
+This project is stateless and can be easily deployed in production using two primary methods.
+
+### Method 1: Managed Cloud Services (Recommended & Lowest Effort)
+
+The easiest setup is to host the Next.js frontend on **Vercel** and the FastAPI backend on **Render** or **Railway**.
+
+#### 1. Deploy the Backend (Render/Railway)
+* Log in to [Render](https://render.com) and create a new **Web Service** from your Git repo.
+* Select the **Docker** runtime.
+* Set the **Build Context** to `backend`.
+* Add these **Environment Variables** in the Render dashboard:
+  * `APP_ENV=production`
+  * `CORS_ORIGINS=["https://your-frontend.vercel.app"]` (Replace with your actual Vercel URL once deployed)
+  * Add the API key for your chosen LLM provider (e.g. `GROQ_API_KEY`, `GOOGLE_API_KEY`).
+* Render will compile your container and host it securely. Note down your API URL (e.g. `https://tailorai-api.onrender.com`).
+
+#### 2. Deploy the Frontend (Vercel)
+* Log in to [Vercel](https://vercel.com) and import your Git repo.
+* Set the **Root Directory** to `frontend`.
+* Add this **Environment Variable**:
+  * `NEXT_PUBLIC_API_BASE_URL=https://tailorai-api.onrender.com` (Your backend URL from Render).
+* Deploy the project. Vercel automatically compiles your Next.js application and hosts it on their global CDN.
+
+---
+
+### Method 2: Self-Hosted VPS (Docker Compose + SSL)
+
+If you have a Linux VPS (Ubuntu), you can use the production configuration provided in the repository to launch the entire stack with automatic SSL/TLS via Let's Encrypt.
+
+#### 1. Configure the Domains
+Point your domain and a subdomain (e.g. `yourdomain.com` and `api.yourdomain.com`) to your VPS IP address using `A` records.
+
+#### 2. Configure Environment Variables
+* Create `backend/.env` containing your LLM credentials and production environment config:
+  ```env
+  APP_ENV=production
+  CORS_ORIGINS=["https://yourdomain.com"]
+  GROQ_API_KEY=your-key
+  ```
+* Create a root `.env` file to configure Caddy proxy and Next.js build:
+  ```env
+  DOMAIN_NAME=yourdomain.com
+  API_DOMAIN_NAME=api.yourdomain.com
+  ACME_EMAIL=your-email@example.com
+  ```
+
+#### 3. Start the Stack
+Build and deploy the application services in detached mode:
+```bash
+docker compose -f docker-compose.prod.yml up --build -d
+```
+Caddy will automatically provision SSL certificates and route traffic to the frontend and backend containers.
+
+---
+
 ## Usage Examples
 
 ### Using the UI
