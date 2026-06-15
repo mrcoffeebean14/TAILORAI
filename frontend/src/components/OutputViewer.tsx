@@ -78,7 +78,7 @@ export function OutputViewer() {
   return (
     <div className="grid gap-6 animate-rise">
       {parsedResume && (
-        <section className="rounded-2xl border border-ink/20 bg-white/70 p-6 shadow-card backdrop-blur-md transition-all hover:bg-white/80 hover:shadow-lg">
+        <section className="min-w-0 rounded-2xl border border-ink/20 bg-white/70 p-6 shadow-card backdrop-blur-md transition-all hover:bg-white/80 hover:shadow-lg">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <h2 className="font-serif text-2xl font-semibold text-ink">Customized Resume LaTeX</h2>
             <div className="flex gap-2">
@@ -101,7 +101,7 @@ export function OutputViewer() {
 
           <ThoughtsAccordion thoughts={parsedResume.thoughts} />
 
-          <pre className="max-h-96 overflow-auto rounded-xl bg-ink p-4 text-xs text-cloud shadow-inner custom-scrollbar">
+          <pre className="max-h-96 w-full overflow-auto whitespace-pre-wrap break-words rounded-xl bg-ink p-4 text-xs text-cloud shadow-inner custom-scrollbar">
             {parsedResume.cleanedText}
           </pre>
         </section>
