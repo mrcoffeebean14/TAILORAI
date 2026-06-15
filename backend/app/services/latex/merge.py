@@ -4,40 +4,38 @@ from __future__ import annotations
 
 import re
 
-SECTION_ORDER = ["experience", "projects", "skills", "education", "certifications"]
-
-
-def _extract_header_footer(original_latex: str) -> tuple[str, str]:
-    begin_index = original_latex.find("\\begin{document}")
-    end_index = original_latex.rfind("\\end{document}")
-
-    if begin_index == -1 or end_index == -1:
-        return "", ""
-
-    header = original_latex[: begin_index + len("\\begin{document}")]
-    footer = original_latex[end_index:]
-    return header, footer
-
 
 def merge_sections_into_resume(
     original_latex: str,
     customized_sections: dict[str, str],
-    certifications_original: str,
 ) -> str:
-    """Create final LaTeX while preserving certifications section exactly."""
-    header, footer = _extract_header_footer(original_latex)
+    """Replace only customized sections in-place, preserving all other content.
 
-    merged_parts: list[str] = []
-    for section_name in SECTION_ORDER:
-        if section_name == "certifications":
-            merged_parts.append(certifications_original)
-            continue
-        merged_parts.append(customized_sections.get(section_name, ""))
+    Instead of rebuilding the document from extracted parts, this performs
+    surgical in-place replacement of each section that was customized,
+    keeping the heading block, preamble, and any unrecognized sections
+    exactly as they appeared in the original.
+    """
+    result = original_latex
 
-    body = "\n\n".join(part.strip() for part in merged_parts if part.strip())
+    # Pattern matches each \section{...} block up to the next \section or \end{document}
+    section_pattern = re.compile(
+        r"(\\section\{([^}]*)\}.*?)(?=\\section\{|\\end\{document\}|\Z)",
+        flags=re.DOTALL | re.IGNORECASE,
+    )
 
-    if header and footer:
-        return f"{header}\n\n{body}\n\n{footer}"
+    # Find all section blocks and their positions; iterate in reverse
+    # so earlier replacements don't shift the offsets of later ones.
+    matches = list(section_pattern.finditer(result))
 
-    # Fallback when source is not a full LaTeX document.
-    return re.sub(r"\n{3,}", "\n\n", body).strip() + "\n"
+    for match in reversed(matches):
+        raw_name = match.group(2)
+        key = raw_name.strip().lower().replace(" ", "")
+
+        if key in customized_sections and customized_sections[key].strip():
+            start = match.start(1)
+            end = match.end(1)
+            replacement = customized_sections[key].strip() + "\n\n"
+            result = result[:start] + replacement + result[end:]
+
+    return result

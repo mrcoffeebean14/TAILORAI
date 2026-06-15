@@ -28,9 +28,7 @@ def _build_graph():
         parsed = parse_latex_sections(request.resume_latex)
         return {
             "parsed_sections": parsed.sections,
-            "customized_sections": {
-                "certifications": parsed.sections["certifications"]
-            },
+            "customized_sections": {},
             "cover_letter": "",
         }
 
@@ -41,6 +39,11 @@ def _build_graph():
         parsed_sections = state["parsed_sections"]
         config = load_provider_model_config()
 
+        # Only customize sections that actually exist in the resume
+        sections_to_customize = [
+            s for s in MUTABLE_SECTIONS if s in parsed_sections
+        ]
+
         tasks = [
             customize_section(
                 config=config,
@@ -49,25 +52,23 @@ def _build_graph():
                 job_description=request.job_description,
                 role=request.role,
             )
-            for section_name in MUTABLE_SECTIONS
+            for section_name in sections_to_customize
         ]
         outputs = await asyncio.gather(*tasks)
 
         customized = dict(state.get("customized_sections", {}))
-        for idx, section_name in enumerate(MUTABLE_SECTIONS):
+        for idx, section_name in enumerate(sections_to_customize):
             customized[section_name] = outputs[idx]
 
         return {"customized_sections": customized}
 
     async def merge_node(state: ResumeWorkflowState) -> ResumeWorkflowState:
         request = state["request"]
-        parsed_sections = state["parsed_sections"]
         customized_sections = state["customized_sections"]
 
         final_resume = merge_sections_into_resume(
             original_latex=request.resume_latex,
             customized_sections=customized_sections,
-            certifications_original=parsed_sections["certifications"],
         )
         validate_latex_structure(final_resume)
         return {"final_resume_latex": final_resume}

@@ -6,13 +6,6 @@ import re
 from dataclasses import dataclass
 
 SECTION_KEYS = ["projects", "experience", "skills", "education", "certifications"]
-SECTION_FALLBACKS: dict[str, str] = {
-    "projects": "\\section{Projects}\n\\begin{itemize}\n\\item No project details provided.\n\\end{itemize}",
-    "experience": "\\section{Experience}\n\\begin{itemize}\n\\item No experience details provided.\n\\end{itemize}",
-    "skills": "\\section{Skills}\n\\begin{itemize}\n\\item Skills not provided.\n\\end{itemize}",
-    "education": "\\section{Education}\n\\begin{itemize}\n\\item Education details not provided.\n\\end{itemize}",
-    "certifications": "\\section{Certifications}\n\\begin{itemize}\n\\item No certifications listed.\n\\end{itemize}",
-}
 
 
 @dataclass(slots=True)
@@ -28,7 +21,12 @@ def _normalize_section_name(raw_name: str) -> str:
 
 
 def parse_latex_sections(resume_latex: str) -> ParsedLatexResume:
-    """Extract known sections from a LaTeX resume with safe fallbacks."""
+    """Extract known sections from a LaTeX resume.
+
+    Only returns sections that actually exist in the document.
+    Missing sections are NOT injected with fallback placeholders so that
+    the original document structure is preserved during merge.
+    """
     pattern = re.compile(
         r"(\\section\{([^}]*)\}.*?)(?=\\section\{|\\end\{document\}|\Z)",
         flags=re.DOTALL | re.IGNORECASE,
@@ -40,8 +38,5 @@ def parse_latex_sections(resume_latex: str) -> ParsedLatexResume:
         key = _normalize_section_name(raw_name)
         if key in SECTION_KEYS:
             parsed_sections[key] = block.strip()
-
-    for required_key in SECTION_KEYS:
-        parsed_sections.setdefault(required_key, SECTION_FALLBACKS[required_key])
 
     return ParsedLatexResume(original_latex=resume_latex, sections=parsed_sections)
