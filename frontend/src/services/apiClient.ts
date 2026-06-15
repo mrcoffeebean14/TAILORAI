@@ -14,8 +14,21 @@ export async function generateResume(
   });
 
   if (!response.ok) {
-    const body = (await response.json().catch(() => null)) as { detail?: string } | null;
-    throw new Error(body?.detail ?? "Failed to generate resume");
+    const body = (await response.json().catch(() => null)) as {
+      detail?: string | Array<{ msg: string; loc?: string[] }>;
+    } | null;
+
+    let errorMessage = "Failed to generate resume";
+    if (body?.detail) {
+      if (Array.isArray(body.detail)) {
+        errorMessage = body.detail
+          .map((err) => `${err.loc?.slice(1).join(".") || "field"}: ${err.msg}`)
+          .join("; ");
+      } else {
+        errorMessage = body.detail;
+      }
+    }
+    throw new Error(errorMessage);
   }
 
   return (await response.json()) as GenerateResumeResponse;
